@@ -9,8 +9,9 @@ class MailBox:
         self.quantity_letters = 80
         self.owner_email = owner_email
         
-    """Notifications from the app""" 
-    """----------------------"""
+    """
+    Notifications from the app
+    """ 
     
     def receive_letter(self) -> None:
         """
@@ -33,7 +34,9 @@ class MailBox:
             print(f"Email sent to {self.owner_email}")
         
     def mail_box_overload_condition(self):
-    """Notification about overload, max = 100 letters."""
+    """
+    Notification about overload, max = 100 letters.
+    """
     
         if self.quantity_letters >= 80 and self.quantity_letters <= 99:
             print(f"In your mailbox is only " + str(100-self.quantity_letters) + " slots.")
@@ -43,29 +46,40 @@ class MailBox:
             pass
     
     def open_box_without_authorization():
-    """Notification about unauthorized open."""
+    """
+    Notification about unauthorized open.
+    """
     
         brake_in = False
 
         while brake_in:
-            """Postbox sending message to security and user"""
+            """
+            Postbox sending message to security and user
+            """
+            
             print("ALARM!")
             break
         else:
             pass
             #print("Everything it's fine.")
         
-    """User funcionality"""
-    """-----------------"""
+    """
+    User funcionality
+    """
+    
     
     def get_the_letter(self):
-    """When user pick up the letter"""
+    """
+    When user pick up the letter
+    """
         
         self.letters.pop((self.name))
         self.quantity_letters -= 1
 
     def search_specyfic_message(self):
-    """Searching specyfic name."""
+    """
+    Searching specyfic name.
+    """
     
         search = input("search: ")
         if search in self.box_history:
@@ -76,7 +90,9 @@ class MailBox:
             print("There is no such letter.")
     
     def full_history(self):
-    """Full history."""
+    """
+    Full history.
+    """
     
         for letter in self.box_history:
             if letter in self.letters:
@@ -85,8 +101,10 @@ class MailBox:
                 print(f"{letter} *picked")
     
     def delete_letter(self):
-    """User could indicate letters for delete without read. 
-    Even if postman doesn't have any letters for user it come and removes them."""
+    """
+    User could indicate letters for delete without read. 
+    Even if postman doesn't have any letters for user it come and removes them.
+    """
     
         print("You can remove letter whitout receive")
 
