@@ -1,38 +1,40 @@
-"""This is a mailbox app"""
-
-class MailBox():
+class MailBox:
+    """
+    Smart MailBox automation class
+    """
     
-    def __init__(self, name):
+    def __init__(self, name, owner_email):
         
         self.name = name
         self.quantity_letters = 80
-        self.letters = []
-        self.box_history = []
+        self.owner_email = owner_email
         
     """Notifications from the app""" 
     """----------------------"""
-
-    """MailBox send notification to user when it has got new letter."""      
-    def receive_message(self):
-        
-        print(f"You have one new message from {self.name}.")
+    
+    def send_notification(self, notification_type) -> None:
+        """
+        Send notification to the owner with specific information
+        :param self:
+        :param notification_type: Type of notification eg. new_letter, _letter,
+        :return: None
+        """
+        if notification_type == "new_letter":
+            print(f"You have new letter in mailbox: {self.name}")
+            print(f"Email sent to {self.owner_email}")
+    
+    def receive_letter(self) -> None:
+        """
+        MailBox send notification to user when it has got new letter
+        :param self:
+        :return: None
+        """
         self.quantity_letters += 1
-        self.letters.append((self.name))
-        self.box_history.append((self.name))
-        print(f"You have {self.quantity_letters} deliverd letters.")
-        print("Do you want to see every deliverd letters?")
-        choice = input("yes/no:" )
-        if choice == "yes":
-            for m in self.letters:
-                print(m)
-                break
-        else:
-            pass
-
-    """Notification about overload, max = 100 letters."""
+        self.send_notification("new_letter")
         
     def mail_box_overload_condition(self):
-        
+    """Notification about overload, max = 100 letters."""
+    
         if self.quantity_letters >= 80 and self.quantity_letters <= 99:
             print(f"In your mailbox is only " + str(100-self.quantity_letters) + " slots.")
         elif self.quantity_letters == 100:
@@ -40,10 +42,11 @@ class MailBox():
         else:
             pass
         
-    """Notification about unauthorized open."""
+    
     
     def open_box_without_authorization():
-        
+    """Notification about unauthorized open."""
+    
         burglary = False
 
         while burglary:
@@ -56,14 +59,16 @@ class MailBox():
         
     """User funcionality"""
     """-----------------"""
-
-    """When user pick up the letter"""
+    
     def get_the_letter(self):
+    """When user pick up the letter"""
+        
         self.letters.pop((self.name))
         self.quantity_letters -= 1
 
-    """Searching specyfic name."""
     def search_specyfic_message(self):
+    """Searching specyfic name."""
+    
         search = input("search: ")
         if search in self.box_history:
             print("You picked up those letter.")
@@ -72,18 +77,19 @@ class MailBox():
         else:
             print("There is no such letter.")
     
-    """Full history."""
     def full_history(self):
+    """Full history."""
+    
         for letter in self.box_history:
             if letter in self.letters:
                 print(f"{letter} *unpicked")
             else:
                 print(f"{letter} *picked")
     
+    def delete_letter(self):
     """User could indicate letters for delete without read. 
     Even if postman doesn't have any letters for user it come and removes them."""
-    def delete_letter(self):
-
+    
         print("You can remove letter whitout receive")
 
         for letter in self.letters: print(letter)
