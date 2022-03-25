@@ -12,6 +12,15 @@ class MailBox:
     """Notifications from the app""" 
     """----------------------"""
     
+    def receive_letter(self) -> None:
+        """
+        MailBox send notification to user when it has got new letter
+        :param self:
+        :return: None
+        """
+        self.quantity_letters += 1
+        self.send_notification("new_letter")
+    
     def send_notification(self, notification_type) -> None:
         """
         Send notification to the owner with specific information
@@ -22,15 +31,6 @@ class MailBox:
         if notification_type == "new_letter":
             print(f"You have new letter in mailbox: {self.name}")
             print(f"Email sent to {self.owner_email}")
-    
-    def receive_letter(self) -> None:
-        """
-        MailBox send notification to user when it has got new letter
-        :param self:
-        :return: None
-        """
-        self.quantity_letters += 1
-        self.send_notification("new_letter")
         
     def mail_box_overload_condition(self):
     """Notification about overload, max = 100 letters."""
@@ -41,15 +41,13 @@ class MailBox:
             print("Your mailbox is full, post office can't deliver you any message!")
         else:
             pass
-        
-    
     
     def open_box_without_authorization():
     """Notification about unauthorized open."""
     
-        burglary = False
+        brake_in = False
 
-        while burglary:
+        while brake_in:
             """Postbox sending message to security and user"""
             print("ALARM!")
             break
