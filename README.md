@@ -11,3 +11,10 @@ Notifications about:
 User's functionalities:
   -user can see letters history. Who and when sended to him letter
   -user could indicate letters for delete without read.
+
+
+
+
+
+
+
