@@ -1,6 +1,8 @@
 class MailBox:
     """
-    Smart MailBox automation class
+    Smart MailBox initialization
+    :param name: mailbox device name       
+    :param owner_email: email used for notification
     """
     
     def __init__(self, name, owner_email):
@@ -8,11 +10,31 @@ class MailBox:
         self.name = name
         self.quantity_letters = 80
         self.owner_email = owner_email
+        self.notification_type = ""
+        self.lock_check = ""
         
     """
     Notifications from the app
     """ 
     
+    def send_notification(self, notification_type) -> None:
+        """
+        Send notification to the owner with specific information
+        :param self:
+        :param notification_type: Type of notification eg. 
+            new_letter, _letter, _overload,brake_in
+        :return: None
+        """
+        if notification_type == "new_letter":
+            print(f"You have new letter in mailbox: {self.name}")
+            print(f"Email sent to {self.owner_email}")
+        elif notification_type == "_overload":
+            print(f"{self.name} is overload")
+            print(f"Email sent to {self.owner_email}")
+        elif notification_type == "brake_in":
+            print(f"breaking into the {self.name}")
+            print(f"Email sent to {self.owner_email}")
+            
     def receive_letter(self) -> None:
         """
         MailBox send notification to user when it has got new letter
@@ -20,99 +42,42 @@ class MailBox:
         :return: None
         """
         self.quantity_letters += 1
-        self.send_notification("new_letter")
-    
-    def send_notification(self, notification_type) -> None:
-        """
-        Send notification to the owner with specific information
-        :param self:
-        :param notification_type: Type of notification eg. new_letter, _letter,
-        :return: None
-        """
-        if notification_type == "new_letter":
-            print(f"You have new letter in mailbox: {self.name}")
-            print(f"Email sent to {self.owner_email}")
+        self.send_notification("new_letter")    
         
-    def mail_box_overload_condition(self):
-    """
-    Notification about overload, max = 100 letters.
-    """
+    def mail_box_overload_condition(self) -> None:
+        """
+        Notification about overload, max = 100 letters.
+        """
     
         if self.quantity_letters >= 80 and self.quantity_letters <= 99:
             print(f"In your mailbox is only " + str(100-self.quantity_letters) + " slots.")
+            self.send_notification("_overload")   
         elif self.quantity_letters == 100:
             print("Your mailbox is full, post office can't deliver you any message!")
+            print(f"Email sent to {self.owner_email}")
+            self.send_notification("_overload")   
         else:
             pass
     
-    def open_box_without_authorization():
-    """
-    Notification about unauthorized open.
-    """
+    def lock_(self):
+        """Mailbox is close."""
+        pass
     
-        brake_in = False
-
-        while brake_in:
-            """
-            Postbox sending message to security and user
-            """
-            
-            print("ALARM!")
-            break
-        else:
-            pass
-            #print("Everything it's fine.")
+    def open_(self):
+        """Mailbox is open."""
+        pass
+    
+    def lock_check(self) -> None:
+        """
+        Notification about unauthorized open.
+        """
+        pass
+    
         
     """
     User funcionality
     """
     
-    
-    def get_the_letter(self):
-    """
-    When user pick up the letter
-    """
-        
-        self.letters.pop((self.name))
+    def get_letter(self):
+        """when you pick up the letter from the mailbox"""
         self.quantity_letters -= 1
-
-    def search_specyfic_message(self):
-    """
-    Searching specyfic name.
-    """
-    
-        search = input("search: ")
-        if search in self.box_history:
-            print("You picked up those letter.")
-        elif search in self.letters:
-            print("It's waiting for you.")
-        else:
-            print("There is no such letter.")
-    
-    def full_history(self):
-    """
-    Full history.
-    """
-    
-        for letter in self.box_history:
-            if letter in self.letters:
-                print(f"{letter} *unpicked")
-            else:
-                print(f"{letter} *picked")
-    
-    def delete_letter(self):
-    """
-    User could indicate letters for delete without read. 
-    Even if postman doesn't have any letters for user it come and removes them.
-    """
-    
-        print("You can remove letter whitout receive")
-
-        for letter in self.letters: print(letter)
-        remove_letter = input("Chose letter to remove: ")
-        
-        if remove_letter in self.letters:
-            self.letters.remove(remove_letter)
-            print("done")
-        else:
-            print("Give a correct name.") 
